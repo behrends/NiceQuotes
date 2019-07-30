@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
-    "firebase": "6.2.3",
+    "firebase": "6.3.3",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz"
   },
