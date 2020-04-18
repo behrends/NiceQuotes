@@ -5,8 +5,12 @@ import {
   Button,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
+
+import { decode, encode } from 'base-64';
+if (!global.btoa) global.btoa = encode;
+if (!global.atob) global.atob = decode;
 
 import Firebase from './js/Firebase';
 import Quote from './js/components/Quote';
@@ -24,31 +28,35 @@ function StyledButton(props) {
 }
 
 export default class App extends Component {
-  state = { index: 0, showNewQuoteScreen: false, quotes: [], isLoading: true };
+  state = {
+    index: 0,
+    showNewQuoteScreen: false,
+    quotes: [],
+    isLoading: true,
+  };
 
   _retrieveData = async () => {
     let quotes = [];
     let query = await Firebase.db.collection('quotes').get();
-    query.forEach(quote => {
+    query.forEach((quote) => {
       quotes.push({
         id: quote.id,
         text: quote.data().text,
-        author: quote.data().author
+        author: quote.data().author,
       });
     });
     this.setState({ quotes, isLoading: false });
   };
 
   _saveQuoteToDB = async (text, author, quotes) => {
-    docRef = await Firebase.db.collection('quotes').add({ text, author });
+    docRef = await Firebase.db
+      .collection('quotes')
+      .add({ text, author });
     quotes[quotes.length - 1].id = docRef.id;
   };
 
   _removeQuoteFromDB(id) {
-    Firebase.db
-      .collection('quotes')
-      .doc(id)
-      .delete();
+    Firebase.db.collection('quotes').doc(id).delete();
   }
 
   _addQuote = (text, author) => {
@@ -60,7 +68,7 @@ export default class App extends Component {
     this.setState({
       index: quotes.length - 1,
       showNewQuoteScreen: false,
-      quotes
+      quotes,
     });
   };
 
@@ -80,8 +88,8 @@ export default class App extends Component {
         {
           text: 'Löschen',
           style: 'destructive',
-          onPress: () => this._deleteQuote()
-        }
+          onPress: () => this._deleteQuote(),
+        },
       ]
     );
   }
@@ -147,20 +155,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   nextButton: {
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
   },
   newButton: {
     position: 'absolute',
     right: 0,
-    top: 30
+    top: 30,
   },
   deleteButton: {
     position: 'absolute',
     left: 0,
-    top: 30
-  }
+    top: 30,
+  },
 });
