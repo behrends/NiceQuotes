@@ -9,11 +9,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "base-64": "^0.1.0",
     "expo": "^37.0.3",
-    "firebase": "7.9.0",
     "react": "16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "firebase": "7.9.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^8.1.0"

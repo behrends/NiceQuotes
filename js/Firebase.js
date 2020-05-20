@@ -16,7 +16,9 @@ export default class Firebase {
   static db;
 
   static init() {
-    firebase.initializeApp(config);
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config);
+    }
     Firebase.db = firebase.firestore();
   }
 }

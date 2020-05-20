@@ -8,10 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import { decode, encode } from 'base-64';
-if (!global.btoa) global.btoa = encode;
-if (!global.atob) global.atob = decode;
-
 import Firebase from './js/Firebase';
 import Quote from './js/components/Quote';
 import NewQuote from './js/components/NewQuote';
