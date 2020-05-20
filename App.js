@@ -3,6 +3,8 @@ import {
   ActivityIndicator,
   Alert,
   Button,
+  Platform,
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -117,7 +119,7 @@ export default class App extends Component {
       content = <Quote text={quote.text} author={quote.author} />;
     }
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StyledButton
           style={styles.deleteButton}
           visible={quotes.length >= 1}
@@ -141,7 +143,7 @@ export default class App extends Component {
           title="Nächstes Zitat"
           onPress={() => this._displayNextQuote()}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     position: 'absolute',
-    bottom: 0,
+    bottom: Platform.OS === 'ios' ? 20 : 0,
   },
   newButton: {
     position: 'absolute',
