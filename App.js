@@ -47,7 +47,7 @@ export default class App extends Component {
   };
 
   _saveQuoteToDB = async (text, author, quotes) => {
-    docRef = await Firebase.db
+    const docRef = await Firebase.db
       .collection('quotes')
       .add({ text, author });
     quotes[quotes.length - 1].id = docRef.id;
