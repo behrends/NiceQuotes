@@ -19,14 +19,13 @@ const data = [
 
 // 2) unsere UI-Komponente deklarieren
 export default function App() {
+  const quote = data[0];
+
   return (
     // JSX --> UI
     <View style={styles.container}>
-      <Text>
-        Probleme kann man niemals mit derselben Denkweise lösen, durch
-        die sie entstanden sind.
-      </Text>
-      <Text>-- Albert Einstein</Text>
+      <Text>{quote.text}</Text>
+      <Text>&mdash; {quote.author}</Text>
       <Button title="Nächstes Zitat" onPress={() => alert('OK!')} />
       <StatusBar style="auto" />
     </View>
