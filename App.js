@@ -2,6 +2,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+const data = [
+  {
+    text: 'Probleme kann man niemals mit derselben Denkweise lösen, durch die sie entstanden sind.',
+    author: 'Albert Einstein',
+  },
+  {
+    text: 'Man braucht nichts im Leben zu fürchten, man muss nur alles verstehen.',
+    author: 'Marie Curie',
+  },
+  {
+    text: 'Nichts ist so beständig wie der Wandel.',
+    author: 'Heraklit',
+  },
+];
+
 // 2) unsere UI-Komponente deklarieren
 export default function App() {
   return (
