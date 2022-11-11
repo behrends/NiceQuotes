@@ -12,7 +12,7 @@ export default function App() {
         die sie entstanden sind.
       </Text>
       <Text>-- Albert Einstein</Text>
-      <Button title="Nächstes Zitat" />
+      <Button title="Nächstes Zitat" onPress={() => alert('OK!')} />
       <StatusBar style="auto" />
     </View>
   );
