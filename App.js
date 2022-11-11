@@ -1,6 +1,6 @@
 // 1) import-Anweisungen
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 // 2) unsere UI-Komponente deklarieren
 export default function App() {
@@ -12,6 +12,7 @@ export default function App() {
         die sie entstanden sind.
       </Text>
       <Text>-- Albert Einstein</Text>
+      <Button title="Nächstes Zitat" />
       <StatusBar style="auto" />
     </View>
   );
