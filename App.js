@@ -20,28 +20,25 @@ const data = [
 
 // 2) unsere UI-Komponente deklarieren
 export default function App() {
-  // Arbeit mit state (Zustand)
-  // 1. Schritt: Komponente (function) mit state erweitern
-  //  --> useState importieren (Hook)
-  // 2. Schritt: initialen Zustand mit useState() festlegen
-  // 3. Schritt: Rückgabewert von useState() speichern
-  // --> useState liefert ein Array mit zwei Elementen zurück
-  // --> das 1. Element ist das Zustandsobjekt
-  // --> das 2. Element ist eine Funktion zur state-Änderung
-  const useStateArray = useState(0); // initialer Zustand: 0
-  // 4. Schritt: Zustandsobjekt aus useState-Array speichern
-  // --> hier der aktuelle Zustand für den index in data
-  const index = useStateArray[0];
-  // 5. Schritt: Zustandsobjekt für Darstellung (UI) verwenden
-  const quote = data[index]; // aktueller Zustand in index
-  // 6. Schritt: Änderungsfunktion aus useState-Aufruf holen
-  const setIndex = useStateArray[1];
-  // 7. Schritt: state mit Änderungsfunktion passend ändern
+  // useState-Hook erweitert Komponente/Funktion mit Zustand
+  // Vorgehen:
+  // - useState-Hook importieren
+  // - useState mit initialem Zustandswert aufrufen
+  // - Rückgabe destrukturieren: state-Objekt, Änderungsfunkt.
+  // - State-Änderungen mit der Änderungsfunktion durchführen
+  // --> bei State-Änderung wird UI automatisch aktualisiert
+  // --> deklarative, reaktive Programmierung in React (Native)
+  const [index, setIndex] = useState(0);
 
-  // state 1 --> data[0] --> UI: 1. Zitat
-  // state 2 --> data[1] --> UI: 2. Zitat
-  // state 3 --> data[2] --> UI: 3. Zitat
-  // ... usw.
+  // Destrukturierung:
+  // const list = [8,4,5,7,1];
+  // const [first, second, third] = list;
+  // entspricht:
+  // const first = list[0];
+  // const second = list[1];
+  // const third = list[2];
+
+  const quote = data[index];
 
   return (
     // JSX --> UI
