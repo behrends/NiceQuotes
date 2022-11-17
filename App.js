@@ -24,12 +24,20 @@ export default function App() {
   // 1. Schritt: Komponente (function) mit state erweitern
   //  --> useState importieren (Hook)
   // 2. Schritt: initialen Zustand mit useState() festlegen
-  useState(0); // initialer Zustand: 0
-  const quote = data[0]; // initialer Zustand
+  // 3. Schritt: Rückgabewert von useState() speichern
+  // --> useState liefert ein Array mit zwei Elementen zurück
+  // --> das erste Element ist das Zustandsobjekt
+  const useStateArray = useState(0); // initialer Zustand: 0
+  // 4. Schritt: Zustandsobjekt aus useState-Array speichern
+  // --> hier der aktuelle Zustand für den index in data
+  const index = useStateArray[0];
+  // 5. Schritt: Zustandsobjekt für Darstellung (UI) verwenden
+  const quote = data[index]; // initialer Zustand
 
-  // state 1 --> data[0]
-  // state 2 --> data[1]
-  // state 3 --> data[2]
+  // state 1 --> data[0] --> UI: 1. Zitat
+  // state 2 --> data[1] --> UI: 2. Zitat
+  // state 3 --> data[2] --> UI: 3. Zitat
+  // ... usw.
 
   return (
     // JSX --> UI
