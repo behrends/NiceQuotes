@@ -26,13 +26,17 @@ export default function App() {
   // 2. Schritt: initialen Zustand mit useState() festlegen
   // 3. Schritt: Rückgabewert von useState() speichern
   // --> useState liefert ein Array mit zwei Elementen zurück
-  // --> das erste Element ist das Zustandsobjekt
+  // --> das 1. Element ist das Zustandsobjekt
+  // --> das 2. Element ist eine Funktion zur state-Änderung
   const useStateArray = useState(0); // initialer Zustand: 0
   // 4. Schritt: Zustandsobjekt aus useState-Array speichern
   // --> hier der aktuelle Zustand für den index in data
   const index = useStateArray[0];
   // 5. Schritt: Zustandsobjekt für Darstellung (UI) verwenden
-  const quote = data[index]; // initialer Zustand
+  const quote = data[index]; // aktueller Zustand in index
+  // 6. Schritt: Änderungsfunktion aus useState-Aufruf holen
+  const setIndex = useStateArray[1];
+  // 7. Schritt: state mit Änderungsfunktion passend ändern
 
   // state 1 --> data[0] --> UI: 1. Zitat
   // state 2 --> data[1] --> UI: 2. Zitat
@@ -44,7 +48,10 @@ export default function App() {
     <View style={styles.container}>
       <Text>{quote.text}</Text>
       <Text>&mdash; {quote.author}</Text>
-      <Button title="Nächstes Zitat" onPress={() => alert('OK!')} />
+      <Button
+        title="Nächstes Zitat"
+        onPress={() => setIndex((index + 1) % data.length)}
+      />
       <StatusBar style="auto" />
     </View>
   );
