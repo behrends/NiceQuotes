@@ -1,4 +1,5 @@
 // 1) import-Anweisungen
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
@@ -19,7 +20,16 @@ const data = [
 
 // 2) unsere UI-Komponente deklarieren
 export default function App() {
-  const quote = data[0];
+  // Arbeit mit state (Zustand)
+  // 1. Schritt: Komponente (function) mit state erweitern
+  //  --> useState importieren (Hook)
+  // 2. Schritt: initialen Zustand mit useState() festlegen
+  useState(0); // initialer Zustand: 0
+  const quote = data[0]; // initialer Zustand
+
+  // state 1 --> data[0]
+  // state 2 --> data[1]
+  // state 3 --> data[2]
 
   return (
     // JSX --> UI
