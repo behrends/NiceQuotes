@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import Quote from './components/Quote';
 
 const data = [
   {
@@ -45,6 +46,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>{quote.text}</Text>
       <Text>&mdash; {quote.author}</Text>
+      <Quote />
       <Button
         title="Nächstes Zitat"
         onPress={() => setIndex((index + 1) % data.length)}
