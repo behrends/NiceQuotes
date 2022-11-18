@@ -44,9 +44,7 @@ export default function App() {
   return (
     // JSX --> UI
     <View style={styles.container}>
-      <Text>{quote.text}</Text>
-      <Text>&mdash; {quote.author}</Text>
-      <Quote />
+      <Quote text={quote.text} author={quote.author} />
       <Button
         title="Nächstes Zitat"
         onPress={() => setIndex((index + 1) % data.length)}
