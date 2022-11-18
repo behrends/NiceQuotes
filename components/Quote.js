@@ -1,10 +1,10 @@
 import { Text } from 'react-native';
 
-export default function Quote(props) {
+export default function Quote({ author, text }) {
   return (
     <>
-      <Text>{props.text}</Text>
-      <Text>&mdash; {props.author}</Text>
+      <Text>{text}</Text>
+      <Text>&mdash; {author}</Text>
     </>
   );
 }
