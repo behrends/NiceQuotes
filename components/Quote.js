@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 export default function Quote({ author, text }) {
   return (
@@ -9,7 +9,12 @@ export default function Quote({ author, text }) {
   );
 }
 
-const styles = {
-  text: { fontSize: 38, fontStyle: 'italic' },
-  author: { fontSize: 24 },
-};
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 38,
+    fontStyle: 'italic',
+  },
+  author: {
+    fontSize: 24,
+  },
+});
