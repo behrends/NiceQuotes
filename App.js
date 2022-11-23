@@ -30,7 +30,7 @@ export default function App() {
         onPress={() => setIndex((index + 1) % data.length)}
         style={styles.next}
       >
-        <Text>Nächstes Zitat</Text>
+        <Text style={styles.nextText}>Nächstes Zitat</Text>
       </Pressable>
       <StatusBar style="auto" />
     </View>
@@ -47,5 +47,14 @@ const styles = StyleSheet.create({
   next: {
     position: 'absolute',
     bottom: 60,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'darkslateblue',
+    backgroundColor: 'darkslateblue',
+  },
+  nextText: {
+    color: '#FFF',
+    fontSize: 18,
   },
 });
