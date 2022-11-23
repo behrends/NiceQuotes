@@ -28,7 +28,7 @@ export default function App() {
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
-        style={{}}
+        style={styles.next}
       >
         <Text>Nächstes Zitat</Text>
       </Pressable>
@@ -43,5 +43,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  next: {
+    position: 'absolute',
+    bottom: 60,
   },
 });
