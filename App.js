@@ -25,6 +25,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Pressable
+        style={styles.new}
+        onPress={() => alert('Neues Zitat')}
+      >
+        <Text>Neues Zitat</Text>
+      </Pressable>
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
@@ -56,5 +62,10 @@ const styles = StyleSheet.create({
   nextText: {
     color: '#FFF',
     fontSize: 18,
+  },
+  new: {
+    position: 'absolute',
+    top: 60,
+    right: 30,
   },
 });
