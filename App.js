@@ -38,7 +38,10 @@ export default function App() {
           color="darkslateblue"
         />
       </Pressable>
-      <NewQuote visible={showNewDialog} />
+      <NewQuote
+        visible={showNewDialog}
+        onCancel={() => setShowNewDialog(false)}
+      />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
