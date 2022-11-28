@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Quote from './components/Quote';
@@ -29,7 +30,11 @@ export default function App() {
         style={styles.new}
         onPress={() => alert('Neues Zitat')}
       >
-        <Text>Neues Zitat</Text>
+        <MaterialIcons
+          name="add-circle"
+          size={36}
+          color="darkslateblue"
+        />
       </Pressable>
       <Quote text={quote.text} author={quote.author} />
       <Pressable
