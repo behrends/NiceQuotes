@@ -22,6 +22,7 @@ const data = [
 
 export default function App() {
   const [index, setIndex] = useState(0);
+  const [showNewDialog, setShowNewDialog] = useState(false);
 
   const quote = data[index];
 
@@ -29,7 +30,7 @@ export default function App() {
     <View style={styles.container}>
       <Pressable
         style={styles.new}
-        onPress={() => alert('Neues Zitat')}
+        onPress={() => setShowNewDialog(true)}
       >
         <MaterialIcons
           name="add-circle"
@@ -37,7 +38,7 @@ export default function App() {
           color="darkslateblue"
         />
       </Pressable>
-      <NewQuote visible={false} />
+      <NewQuote visible={showNewDialog} />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
