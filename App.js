@@ -3,6 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Quote from './components/Quote';
+import NewQuote from './components/NewQuote';
 
 const data = [
   {
@@ -36,6 +37,7 @@ export default function App() {
           color="darkslateblue"
         />
       </Pressable>
+      <NewQuote />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
