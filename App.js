@@ -37,7 +37,7 @@ export default function App() {
           color="darkslateblue"
         />
       </Pressable>
-      <NewQuote />
+      <NewQuote visible={false} />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
         onPress={() => setIndex((index + 1) % data.length)}
