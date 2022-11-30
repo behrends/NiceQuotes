@@ -1,4 +1,10 @@
-import { Modal, Pressable, Text, View } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 export default function NewQuote({ visible, onCancel }) {
   return (
@@ -7,7 +13,7 @@ export default function NewQuote({ visible, onCancel }) {
       onRequestClose={onCancel}
       animationType="slide"
     >
-      <View style={{ marginBottom: 50 }}>
+      <View style={styles.container}>
         <Text style={{ borderWidth: 3, padding: 30 }}>
           Neues Zitat eingeben…
         </Text>
@@ -18,3 +24,12 @@ export default function NewQuote({ visible, onCancel }) {
     </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // Inhalte zentrieren
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
