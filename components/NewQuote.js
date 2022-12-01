@@ -1,10 +1,11 @@
 import {
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  View,
 } from 'react-native';
 
 export default function NewQuote({ visible, onCancel }) {
@@ -14,13 +15,19 @@ export default function NewQuote({ visible, onCancel }) {
       onRequestClose={onCancel}
       animationType="slide"
     >
-      <View style={styles.container}>
-        <TextInput placeholder="Inhalt" style={styles.input} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <TextInput
+          placeholder="Inhalt"
+          style={[styles.input, styles.contentInput]}
+        />
         <TextInput placeholder="Name" style={styles.input} />
         <Pressable onPress={onCancel}>
           <Text style={{ fontSize: 24, padding: 10 }}>abbrechen</Text>
         </Pressable>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
@@ -40,5 +47,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     fontSize: 20,
+  },
+  contentInput: {
+    height: 150,
   },
 });
