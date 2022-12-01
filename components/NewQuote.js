@@ -21,9 +21,15 @@ export default function NewQuote({ visible, onCancel }) {
       >
         <TextInput
           placeholder="Inhalt"
+          multiline={true}
           style={[styles.input, styles.contentInput]}
         />
-        <TextInput placeholder="Name" style={styles.input} />
+        <TextInput
+          placeholder="Name"
+          returnKeyType="done"
+          onSubmitEditing={() => alert('Zitat speichern')}
+          style={styles.input}
+        />
         <Pressable onPress={onCancel}>
           <Text style={{ fontSize: 24, padding: 10 }}>abbrechen</Text>
         </Pressable>
@@ -50,5 +56,6 @@ const styles = StyleSheet.create({
   },
   contentInput: {
     height: 150,
+    textAlignVertical: 'top',
   },
 });
