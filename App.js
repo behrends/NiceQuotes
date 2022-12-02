@@ -27,6 +27,17 @@ export default function App() {
 
   const quote = quotes[index];
 
+  function addQuoteToList(text, author) {
+    setShowNewDialog(false);
+    // Neues Zitat den bisherigen hinzufügen
+    const newQuotes = [
+      ...quotes, // ... -> Spread-Operator
+      { text, author }, // text ~ text: text
+    ];
+    setQuotes(newQuotes);
+    setIndex(newQuotes.length - 1);
+  }
+
   return (
     <View style={styles.container}>
       <Pressable
@@ -42,15 +53,7 @@ export default function App() {
       <NewQuote
         visible={showNewDialog}
         onCancel={() => setShowNewDialog(false)}
-        onSave={(content, name) => {
-          setShowNewDialog(false);
-          // Neues Zitat den bisherigen hinzufügen
-          const newQuotes = [
-            ...quotes, // ... -> Spread-Operator
-            { text: content, author: name },
-          ];
-          setQuotes(newQuotes);
-        }}
+        onSave={addQuoteToList}
       />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
