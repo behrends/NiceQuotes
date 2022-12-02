@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import BigButton from './components/BigButton';
 import Quote from './components/Quote';
 import NewQuote from './components/NewQuote';
 
@@ -56,12 +57,11 @@ export default function App() {
         onSave={addQuoteToList}
       />
       <Quote text={quote.text} author={quote.author} />
-      <Pressable
-        onPress={() => setIndex((index + 1) % quotes.length)}
+      <BigButton
         style={styles.next}
-      >
-        <Text style={styles.nextText}>Nächstes Zitat</Text>
-      </Pressable>
+        title="Nächstes Zitat"
+        onPress={() => setIndex((index + 1) % quotes.length)}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -77,15 +77,6 @@ const styles = StyleSheet.create({
   next: {
     position: 'absolute',
     bottom: 60,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: 'darkslateblue',
-    backgroundColor: 'darkslateblue',
-  },
-  nextText: {
-    color: '#FFF',
-    fontSize: 18,
   },
   new: {
     position: 'absolute',

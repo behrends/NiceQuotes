@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
 } from 'react-native';
+import BigButton from './BigButton';
 
 export default function NewQuote({ visible, onCancel, onSave }) {
   const [name, setName] = useState(null);
@@ -39,6 +40,10 @@ export default function NewQuote({ visible, onCancel, onSave }) {
         <Pressable onPress={onCancel}>
           <Text style={{ fontSize: 24, padding: 10 }}>abbrechen</Text>
         </Pressable>
+        <BigButton
+          title="Speichern"
+          onPress={() => onSave(content, name)}
+        />
       </KeyboardAvoidingView>
     </Modal>
   );
