@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 
-export default function NewQuote({ visible, onCancel }) {
+export default function NewQuote({ visible, onCancel, onSave }) {
   const [name, setName] = useState(null);
   const [content, setContent] = useState(null);
 
@@ -33,9 +33,7 @@ export default function NewQuote({ visible, onCancel }) {
           placeholder="Name"
           returnKeyType="done"
           onChangeText={setName}
-          onSubmitEditing={() =>
-            alert(`Inhalt: ${content} Name: ${name}`)
-          }
+          onSubmitEditing={() => onSave(content, name)}
           style={styles.input}
         />
         <Pressable onPress={onCancel}>

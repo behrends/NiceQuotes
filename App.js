@@ -22,9 +22,10 @@ const data = [
 
 export default function App() {
   const [index, setIndex] = useState(0);
+  const [quotes, setQuotes] = useState(data);
   const [showNewDialog, setShowNewDialog] = useState(false);
 
-  const quote = data[index];
+  const quote = quotes[index];
 
   return (
     <View style={styles.container}>
@@ -41,10 +42,19 @@ export default function App() {
       <NewQuote
         visible={showNewDialog}
         onCancel={() => setShowNewDialog(false)}
+        onSave={(content, name) => {
+          setShowNewDialog(false);
+          // Neues Zitat den bisherigen hinzufügen
+          const newQuotes = [
+            ...quotes, // ... -> Spread-Operator
+            { text: content, author: name },
+          ];
+          setQuotes(newQuotes);
+        }}
       />
       <Quote text={quote.text} author={quote.author} />
       <Pressable
-        onPress={() => setIndex((index + 1) % data.length)}
+        onPress={() => setIndex((index + 1) % quotes.length)}
         style={styles.next}
       >
         <Text style={styles.nextText}>Nächstes Zitat</Text>
