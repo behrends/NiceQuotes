@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -9,6 +10,9 @@ import {
 } from 'react-native';
 
 export default function NewQuote({ visible, onCancel }) {
+  const [name, setName] = useState(null);
+  const [content, setContent] = useState(null);
+
   return (
     <Modal
       visible={visible}
@@ -22,12 +26,16 @@ export default function NewQuote({ visible, onCancel }) {
         <TextInput
           placeholder="Inhalt"
           multiline={true}
+          onChangeText={setContent}
           style={[styles.input, styles.contentInput]}
         />
         <TextInput
           placeholder="Name"
           returnKeyType="done"
-          onSubmitEditing={() => alert('Zitat speichern')}
+          onChangeText={setName}
+          onSubmitEditing={() =>
+            alert(`Inhalt: ${content} Name: ${name}`)
+          }
           style={styles.input}
         />
         <Pressable onPress={onCancel}>
