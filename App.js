@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import BigButton from './components/BigButton';
+import IconButton from './components/IconButton';
 import Quote from './components/Quote';
 import NewQuote from './components/NewQuote';
 
@@ -41,16 +41,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.new}
+      <IconButton
         onPress={() => setShowNewDialog(true)}
-      >
-        <MaterialIcons
-          name="add-circle"
-          size={36}
-          color="darkslateblue"
-        />
-      </Pressable>
+        icon="add-circle"
+        style={styles.new}
+      />
       <NewQuote
         visible={showNewDialog}
         onCancel={() => setShowNewDialog(false)}

@@ -3,12 +3,11 @@ import {
   KeyboardAvoidingView,
   Modal,
   Platform,
-  Pressable,
   StyleSheet,
-  Text,
   TextInput,
 } from 'react-native';
 import BigButton from './BigButton';
+import IconButton from './IconButton';
 
 export default function NewQuote({ visible, onCancel, onSave }) {
   const [name, setName] = useState(null);
@@ -24,6 +23,11 @@ export default function NewQuote({ visible, onCancel, onSave }) {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
+        <IconButton
+          onPress={onCancel}
+          icon="arrow-back"
+          style={styles.back}
+        />
         <TextInput
           placeholder="Inhalt"
           multiline={true}
@@ -37,9 +41,6 @@ export default function NewQuote({ visible, onCancel, onSave }) {
           onSubmitEditing={() => onSave(content, name)}
           style={styles.input}
         />
-        <Pressable onPress={onCancel}>
-          <Text style={{ fontSize: 24, padding: 10 }}>abbrechen</Text>
-        </Pressable>
         <BigButton
           title="Speichern"
           onPress={() => onSave(content, name)}
@@ -68,5 +69,10 @@ const styles = StyleSheet.create({
   contentInput: {
     height: 150,
     textAlignVertical: 'top',
+  },
+  back: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
   },
 });
