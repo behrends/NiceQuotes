@@ -10,13 +10,26 @@ import BigButton from './BigButton';
 import IconButton from './IconButton';
 
 export default function NewQuote({ visible, onCancel, onSave }) {
-  const [name, setName] = useState(null);
-  const [content, setContent] = useState(null);
+  const [name, setName] = useState('');
+  const [content, setContent] = useState('');
+
+  function saveQuote() {
+    // Leerzeichen am Anfang/Ende entfernen
+    const newContent = content.trim();
+    const newName = name.trim();
+    if (newContent.length === 0 || newName.length === 0) {
+      alert('Inhalt und Name des Zitats dürfen nicht leer sein.');
+      return;
+    }
+    onSave(newContent, newName);
+    setContent('');
+    setName('');
+  }
 
   function cancelEditing() {
     onCancel();
-    setContent(null);
-    setName(null);
+    setContent('');
+    setName('');
   }
 
   return (
@@ -44,13 +57,10 @@ export default function NewQuote({ visible, onCancel, onSave }) {
           placeholder="Name"
           returnKeyType="done"
           onChangeText={setName}
-          onSubmitEditing={() => onSave(content, name)}
+          onSubmitEditing={saveQuote}
           style={styles.input}
         />
-        <BigButton
-          title="Speichern"
-          onPress={() => onSave(content, name)}
-        />
+        <BigButton title="Speichern" onPress={saveQuote} />
       </KeyboardAvoidingView>
     </Modal>
   );
