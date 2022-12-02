@@ -13,10 +13,16 @@ export default function NewQuote({ visible, onCancel, onSave }) {
   const [name, setName] = useState(null);
   const [content, setContent] = useState(null);
 
+  function cancelEditing() {
+    onCancel();
+    setContent(null);
+    setName(null);
+  }
+
   return (
     <Modal
       visible={visible}
-      onRequestClose={onCancel}
+      onRequestClose={cancelEditing}
       animationType="slide"
     >
       <KeyboardAvoidingView
@@ -24,7 +30,7 @@ export default function NewQuote({ visible, onCancel, onSave }) {
         style={styles.container}
       >
         <IconButton
-          onPress={onCancel}
+          onPress={cancelEditing}
           icon="arrow-back"
           style={styles.back}
         />
