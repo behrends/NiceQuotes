@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
 import Quote from './components/Quote';
@@ -37,6 +38,12 @@ export default function App() {
     ];
     setQuotes(newQuotes);
     setIndex(newQuotes.length - 1);
+    saveQuotes(newQuotes);
+  }
+
+  function saveQuotes(newQuotes) {
+    // Speicherung der Zitate in AsyncStorage
+    AsyncStorage.setItem('QUOTES', JSON.stringify(newQuotes));
   }
 
   return (
