@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -27,6 +27,11 @@ export default function App() {
   const [quotes, setQuotes] = useState(data);
   const [showNewDialog, setShowNewDialog] = useState(false);
 
+  // Zitate beim Start der App laden
+  useEffect(() => {
+    loadQuotes();
+  }, []); // [] --> einmalige Ausführung
+
   const quote = quotes[index];
 
   function addQuoteToList(text, author) {
@@ -49,13 +54,10 @@ export default function App() {
   async function loadQuotes() {
     let quotesFromDB = await AsyncStorage.getItem('QUOTES');
     if (quotesFromDB !== null) {
-      console.log('Anzahl der Zitate: ' + quotesFromDB.length);
       quotesFromDB = JSON.parse(quotesFromDB);
-      console.log('nach JSON.parse: ' + quotesFromDB.length);
-      // TODO: Zitate im state ablegen
+      setQuotes(quotesFromDB);
     }
   }
-  loadQuotes();
 
   return (
     <View style={styles.container}>
