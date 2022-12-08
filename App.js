@@ -1,38 +1,21 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
 import Quote from './components/Quote';
 import NewQuote from './components/NewQuote';
 
-const data = [
-  {
-    text: 'Probleme kann man niemals mit derselben Denkweise lösen, durch die sie entstanden sind.',
-    author: 'Albert Einstein',
-  },
-  {
-    text: 'Man braucht nichts im Leben zu fürchten, man muss nur alles verstehen.',
-    author: 'Marie Curie',
-  },
-  {
-    text: 'Nichts ist so beständig wie der Wandel.',
-    author: 'Heraklit',
-  },
-];
-
 export default function App() {
   const [index, setIndex] = useState(0);
-  const [quotes, setQuotes] = useState(data);
+  const [quotes, setQuotes] = useState([]);
   const [showNewDialog, setShowNewDialog] = useState(false);
 
   // Zitate beim Start der App laden
   useEffect(() => {
     loadQuotes();
   }, []); // [] --> einmalige Ausführung
-
-  const quote = quotes[index];
 
   function addQuoteToList(text, author) {
     setShowNewDialog(false);
@@ -67,6 +50,12 @@ export default function App() {
     }
   }
 
+  let content = <Text style={styles.noQuotes}>Keine Zitate</Text>;
+  if (quotes.length > 0) {
+    const quote = quotes[index];
+    content = <Quote text={quote.text} author={quote.author} />;
+  }
+
   return (
     <View style={styles.container}>
       <IconButton
@@ -84,7 +73,7 @@ export default function App() {
         onCancel={() => setShowNewDialog(false)}
         onSave={addQuoteToList}
       />
-      <Quote text={quote.text} author={quote.author} />
+      {content}
       <BigButton
         style={styles.next}
         title="Nächstes Zitat"
@@ -115,5 +104,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     left: 30,
+  },
+  noQuotes: {
+    fontSize: 36,
+    fontWeight: '300',
   },
 });
