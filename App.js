@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
@@ -37,6 +37,21 @@ export default function App() {
     saveQuotes(newQuotes);
   }
 
+  function deleteQuote() {
+    Alert.alert(
+      'Zitat löschen',
+      'Soll das Zitat wirklich gelöscht werden?',
+      [
+        { text: 'Abbrechen', style: 'cancel' },
+        {
+          text: 'Bestätigen',
+          style: 'destructive',
+          onPress: removeQuoteFromList,
+        },
+      ]
+    );
+  }
+
   function saveQuotes(newQuotes) {
     // Speicherung der Zitate in AsyncStorage
     AsyncStorage.setItem('QUOTES', JSON.stringify(newQuotes));
@@ -59,7 +74,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <IconButton
-        onPress={removeQuoteFromList}
+        onPress={deleteQuote}
         icon="delete"
         style={styles.delete}
       />
