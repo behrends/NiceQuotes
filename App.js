@@ -46,6 +46,14 @@ export default function App() {
     saveQuotes(newQuotes);
   }
 
+  function removeQuoteFromList() {
+    const newQuotes = [...quotes];
+    newQuotes.splice(index, 1);
+    setQuotes(newQuotes);
+    setIndex(0);
+    saveQuotes(newQuotes);
+  }
+
   function saveQuotes(newQuotes) {
     // Speicherung der Zitate in AsyncStorage
     AsyncStorage.setItem('QUOTES', JSON.stringify(newQuotes));
@@ -61,6 +69,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <IconButton
+        onPress={removeQuoteFromList}
+        icon="delete"
+        style={styles.delete}
+      />
       <IconButton
         onPress={() => setShowNewDialog(true)}
         icon="add-circle"
@@ -97,5 +110,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 30,
+  },
+  delete: {
+    position: 'absolute',
+    top: 60,
+    left: 30,
   },
 });
