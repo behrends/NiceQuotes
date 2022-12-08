@@ -73,11 +73,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <IconButton
-        onPress={deleteQuote}
-        icon="delete"
-        style={styles.delete}
-      />
+      {quotes.length === 0 ? null : (
+        <IconButton
+          onPress={deleteQuote}
+          icon="delete"
+          style={styles.delete}
+        />
+      )}
       <IconButton
         onPress={() => setShowNewDialog(true)}
         icon="add-circle"
@@ -89,11 +91,13 @@ export default function App() {
         onSave={addQuoteToList}
       />
       {content}
-      <BigButton
-        style={styles.next}
-        title="Nächstes Zitat"
-        onPress={() => setIndex((index + 1) % quotes.length)}
-      />
+      {quotes.length < 2 ? null : (
+        <BigButton
+          style={styles.next}
+          title="Nächstes Zitat"
+          onPress={() => setIndex((index + 1) % quotes.length)}
+        />
+      )}
       <StatusBar style="auto" />
     </View>
   );
