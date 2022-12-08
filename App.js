@@ -32,8 +32,8 @@ export default function App() {
   function removeQuoteFromList() {
     const newQuotes = [...quotes];
     newQuotes.splice(index, 1);
-    setQuotes(newQuotes);
     setIndex(0);
+    setQuotes(newQuotes);
     saveQuotes(newQuotes);
   }
 
