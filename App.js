@@ -46,6 +46,17 @@ export default function App() {
     AsyncStorage.setItem('QUOTES', JSON.stringify(newQuotes));
   }
 
+  async function loadQuotes() {
+    let quotesFromDB = await AsyncStorage.getItem('QUOTES');
+    if (quotesFromDB !== null) {
+      console.log('Anzahl der Zitate: ' + quotesFromDB.length);
+      quotesFromDB = JSON.parse(quotesFromDB);
+      console.log('nach JSON.parse: ' + quotesFromDB.length);
+      // TODO: Zitate im state ablegen
+    }
+  }
+  loadQuotes();
+
   return (
     <View style={styles.container}>
       <IconButton
