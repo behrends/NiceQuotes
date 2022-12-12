@@ -38,15 +38,19 @@ export default function App() {
     ];
     setQuotes(newQuotes);
     setIndex(newQuotes.length - 1);
-    saveQuotes(newQuotes);
+    saveQuotes(text, author, newQuotes);
   }
 
   function removeQuoteFromList() {
     const newQuotes = [...quotes];
+    const id = quotes[index].id;
     newQuotes.splice(index, 1);
     setIndex(0);
     setQuotes(newQuotes);
-    // TODO: Zitat aus SQLite löschen
+    // Zitat aus SQLite löschen
+    database.transaction((tx) =>
+      tx.executeSql('DELETE FROM quotes WHERE id=?', [id])
+    );
   }
 
   function deleteQuote() {
@@ -64,18 +68,28 @@ export default function App() {
     );
   }
 
-  function saveQuotes(newQuotes) {
-    // Speicherung der Zitate in SQLite
-    // TODO: Zitat in SQLite speichern
+  function saveQuotes(text, author, newQuotes) {
+    // Zitat in SQLite speichern
+    database.transaction((tx) =>
+      tx.executeSql(
+        'INSERT INTO quotes (text,author) VALUES (?,?)',
+        [text, author],
+        (_, result) => {
+          // id im neuen Zitat setzen
+          newQuotes[newQuotes.length - 1].id = result.insertId;
+          setQuotes(newQuotes);
+        }
+      )
+    );
   }
 
   async function loadQuotes() {
-    // TODO: Zitat aus SQLite laden
-    let quotesFromDB = null;
-    if (quotesFromDB !== null) {
-      quotesFromDB = JSON.parse(quotesFromDB);
-      setQuotes(quotesFromDB);
-    }
+    // Zitate aus SQLite laden
+    database.transaction((tx) =>
+      tx.executeSql('SELECT * FROM quotes', [], (_, result) => {
+        setQuotes(result.rows._array);
+      })
+    );
   }
 
   let content = <Text style={styles.noQuotes}>Keine Zitate</Text>;
