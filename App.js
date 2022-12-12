@@ -16,8 +16,18 @@ export default function App() {
 
   // Zitate beim Start der App laden
   useEffect(() => {
+    initDB();
     loadQuotes();
   }, []); // [] --> einmalige Ausführung
+
+  function initDB() {
+    // Tabelle quotes erstellen (falls noch nicht vorhanden)
+    database.transaction((tx) =>
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY NOT NULL, text TEXT, author TEXT);'
+      )
+    );
+  }
 
   function addQuoteToList(text, author) {
     setShowNewDialog(false);
