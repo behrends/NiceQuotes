@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SQLite from 'expo-sqlite';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
 import Quote from './components/Quote';
 import NewQuote from './components/NewQuote';
+
+const database = SQLite.openDatabase('quotes.db');
 
 export default function App() {
   const [index, setIndex] = useState(0);
@@ -34,7 +36,7 @@ export default function App() {
     newQuotes.splice(index, 1);
     setIndex(0);
     setQuotes(newQuotes);
-    saveQuotes(newQuotes);
+    // TODO: Zitat aus SQLite löschen
   }
 
   function deleteQuote() {
@@ -53,12 +55,13 @@ export default function App() {
   }
 
   function saveQuotes(newQuotes) {
-    // Speicherung der Zitate in AsyncStorage
-    AsyncStorage.setItem('QUOTES', JSON.stringify(newQuotes));
+    // Speicherung der Zitate in SQLite
+    // TODO: Zitat in SQLite speichern
   }
 
   async function loadQuotes() {
-    let quotesFromDB = await AsyncStorage.getItem('QUOTES');
+    // TODO: Zitat aus SQLite laden
+    let quotesFromDB = null;
     if (quotesFromDB !== null) {
       quotesFromDB = JSON.parse(quotesFromDB);
       setQuotes(quotesFromDB);
