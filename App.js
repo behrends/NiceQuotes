@@ -36,7 +36,7 @@ export default function App() {
     newQuotes.splice(index, 1);
     setIndex(0);
     setQuotes(newQuotes);
-    // TODO: Zitat aus Firebase löschen
+    Firebase.removeQuote(id);
   }
 
   function deleteQuote() {
@@ -62,7 +62,8 @@ export default function App() {
   }
 
   async function loadQuotes() {
-    // TODO Zitate aus Firebase laden
+    const quotesFromDB = await Firebase.getQuotes();
+    setQuotes(quotesFromDB);
   }
 
   let content = <Text style={styles.noQuotes}>Keine Zitate</Text>;

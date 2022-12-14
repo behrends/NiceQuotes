@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   // TODO: Konfiguration des Firebase-Projekts eintragen
@@ -19,7 +26,20 @@ export default class Firebase {
     Firebase.db = getFirestore(app);
   }
 
-  // getQuotes --> Firebase.db....
+  static async getQuotes() {
+    let quotes = [];
+    const querySnapshot = await getDocs(
+      collection(Firebase.db, 'quotes')
+    );
+    querySnapshot.forEach((quote) => {
+      quotes.push({
+        id: quote.id,
+        text: quote.data().text,
+        author: quote.data().author,
+      });
+    });
+    return quotes;
+  }
 
   static async saveQuote(text, author) {
     const docRef = await addDoc(collection(Firebase.db, 'quotes'), {
@@ -27,5 +47,9 @@ export default class Firebase {
       author,
     });
     return docRef.id;
+  }
+
+  static removeQuote(id) {
+    deleteDoc(doc(Firebase.db, 'quotes', id));
   }
 }
