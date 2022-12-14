@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import * as SQLite from 'expo-sqlite';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
 import Quote from './components/Quote';
 import NewQuote from './components/NewQuote';
-
-const database = SQLite.openDatabase('quotes.db');
+import Firebase from './Firebase';
 
 export default function App() {
   const [index, setIndex] = useState(0);
@@ -16,18 +14,9 @@ export default function App() {
 
   // Zitate beim Start der App laden
   useEffect(() => {
-    initDB();
+    Firebase.init();
     loadQuotes();
   }, []); // [] --> einmalige Ausführung
-
-  function initDB() {
-    // Tabelle quotes erstellen (falls noch nicht vorhanden)
-    database.transaction((tx) =>
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY NOT NULL, text TEXT, author TEXT);'
-      )
-    );
-  }
 
   function addQuoteToList(text, author) {
     setShowNewDialog(false);
@@ -47,10 +36,7 @@ export default function App() {
     newQuotes.splice(index, 1);
     setIndex(0);
     setQuotes(newQuotes);
-    // Zitat aus SQLite löschen
-    database.transaction((tx) =>
-      tx.executeSql('DELETE FROM quotes WHERE id=?', [id])
-    );
+    // TODO: Zitat aus Firebase löschen
   }
 
   function deleteQuote() {
@@ -68,28 +54,15 @@ export default function App() {
     );
   }
 
-  function saveQuotes(text, author, newQuotes) {
-    // Zitat in SQLite speichern
-    database.transaction((tx) =>
-      tx.executeSql(
-        'INSERT INTO quotes (text,author) VALUES (?,?)',
-        [text, author],
-        (_, result) => {
-          // id im neuen Zitat setzen
-          newQuotes[newQuotes.length - 1].id = result.insertId;
-          setQuotes(newQuotes);
-        }
-      )
-    );
+  async function saveQuotes(text, author, newQuotes) {
+    // Zitat in Firebase speichern
+    const id = await Firebase.saveQuote(text, author);
+    newQuotes[newQuotes.length - 1].id = id;
+    setQuotes(newQuotes);
   }
 
   async function loadQuotes() {
-    // Zitate aus SQLite laden
-    database.transaction((tx) =>
-      tx.executeSql('SELECT * FROM quotes', [], (_, result) => {
-        setQuotes(result.rows._array);
-      })
-    );
+    // TODO Zitate aus Firebase laden
   }
 
   let content = <Text style={styles.noQuotes}>Keine Zitate</Text>;
