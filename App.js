@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import BigButton from './components/BigButton';
 import IconButton from './components/IconButton';
 import Quote from './components/Quote';
@@ -11,6 +17,7 @@ export default function App() {
   const [index, setIndex] = useState(0);
   const [quotes, setQuotes] = useState([]);
   const [showNewDialog, setShowNewDialog] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   // Zitate beim Start der App laden
   useEffect(() => {
@@ -64,6 +71,15 @@ export default function App() {
   async function loadQuotes() {
     const quotesFromDB = await Firebase.getQuotes();
     setQuotes(quotesFromDB);
+    setLoading(false);
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="darkslateblue" />
+      </View>
+    );
   }
 
   let content = <Text style={styles.noQuotes}>Keine Zitate</Text>;
